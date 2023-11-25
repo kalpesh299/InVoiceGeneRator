@@ -26,7 +26,7 @@ const[desc,setdesc]=useState("")
 const[price,setprice]=useState(0)
 const[amount,setamount]=useState(0)
 const [list,setlist]=useState([]);
-
+const [editing,setenditing]=useState(false);
 console.log(list)
 const print=()=>{
   window.print();
@@ -50,8 +50,9 @@ useEffect(()=>{
     <div className="w-screen flex items-center justify-center ">
 
       {preview? <div className='md:mt-4 border-2 shadow-lg w-full p-2 md:w-2/4'>
-        <Header name={name} print={print} download={dnld}/>
-        <ClientInfo cliname={cliname} climail={climail} invno={invno} invd={invd} duedate={duedate} note={note} list={list} />
+        <Header   name={name} print={print} download={dnld}/>
+        <ClientInfo editing={editing}
+setenditing={setenditing} qty={qty} setqty={setqty} desc={desc} setdesc={setdesc} price={price} setprice={setprice} cliname={cliname} climail={climail} invno={invno} invd={invd} duedate={duedate} note={note} list={list} setlist={setlist}/>
         <Footer mail={mail}  phno={phno} bankname={bankname} acch={acch} accno={accno} website={website} setpreview={setpreview} />
           </div>:
           <div className='md:mt-4 border-2 shadow-lg w-full p-2 flex flex-col  md:w-2/4 '>
@@ -133,6 +134,8 @@ useEffect(()=>{
             list={list}
             setlist={setlist}
 setpreview={setpreview}
+editing={editing}
+setenditing={setenditing}
             />
             
             <label className='m-2'>Notes :</label>

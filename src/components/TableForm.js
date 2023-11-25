@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { v4 as uuidv4 } from "uuid"
 
 export const TableForm = ({
@@ -10,7 +10,7 @@ export const TableForm = ({
     setprice,
     amount,
 setlist,
-list
+list,editing,setenditing
 }) => {
 
 
@@ -33,9 +33,27 @@ const handleSubmit =(e)=>{
    setqty(0)
    setdesc("")
    setprice(0)
-   
+   setenditing(false)
 }
 
+const deletItem=(id)=>{
+  setlist(list.filter((el)=>{
+    return el.id!==id;
+  }))
+}
+
+const editeItem=(id)=>{
+
+const rowTobedit=list.find((row)=>row.id===id);
+setlist(list.filter((el)=>{
+    return el.id!==id;
+  }))
+setdesc(rowTobedit.desc);
+setprice(rowTobedit.price);
+setqty(rowTobedit.qty)
+setenditing(true)
+// setpreview(false)
+}
 
   return (
     <div>
@@ -61,9 +79,36 @@ const handleSubmit =(e)=>{
             </div>
             
             </div>
-           <button type='submit' className='bg-blue-500 mt-3' >Add Item</button> 
+           <button type='submit' className='bg-blue-500 mt-3' >{editing?"edit Item":"add Item"}</button> 
         </form>
-       
+        <table className='w-11/12 m-4'>
+
+        <thead className='font-bold'>
+            <tr className='bg-gray-200'>
+                <td className='border-2 border-black '>
+                    Description
+                </td>
+                <td className='border-2 border-black'>Quantity</td>
+                <td className='border-2 border-black'>Price</td>
+                <td className='border-2 border-black'>Amount</td>
+           </tr>
+        </thead>
+        {list.map((el)=>{
+           return (
+            <tr key={uuidv4()}>
+          <td className='border-2 border-black'>{el.desc}</td>
+          <td className='border-2 border-black'>{el.qty}</td>
+          <td className='border-2 border-black'>{el.price}</td>
+          <td className='border-2 border-black'>{el.amount}</td>
+          <button onClick={()=>deletItem(el.id)} >❌</button>
+          <button onClick={()=>editeItem(el.id)}>📝</button>
+           </tr>
+           
+           )  
+        })}
+   
+
+        </table>
     </div>
   )
 }

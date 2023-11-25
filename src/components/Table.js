@@ -1,7 +1,26 @@
-import React from 'react'
+
 import { v4 as uuidv4 } from 'uuid';
 
-export const Table = ({list}) => {
+export const Table = ({editing,setenditing,price,setprice, qty,desc,setdesc,setqty,list,setlist,setpreview}) => {
+  
+    const deletItem=(id)=>{
+          setlist(list.filter((el)=>{
+            return el.id!==id;
+          }))
+    }
+
+    const editeItem=(id)=>{
+        
+        const rowTobedit=list.find((row)=>row.id===id);
+        setlist(list.filter((el)=>{
+            return el.id!==id;
+          }))
+        setdesc(rowTobedit.desc);
+        setprice(rowTobedit.price);
+        setqty(rowTobedit.qty)
+        setenditing(true)
+        // setpreview(false)
+    }
   return (
     <div>
         <table className='w-11/12 m-4'>
@@ -23,7 +42,10 @@ export const Table = ({list}) => {
           <td className='border-2 border-black'>{el.qty}</td>
           <td className='border-2 border-black'>{el.price}</td>
           <td className='border-2 border-black'>{el.amount}</td>
+          <button onClick={()=>deletItem(el.id)} >❌</button>
+          <button onClick={()=>editeItem(el.id)}>📝</button>
            </tr>
+           
            )  
         })}
    
