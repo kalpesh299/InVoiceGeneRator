@@ -1,40 +1,57 @@
 
-import { useState } from 'react';
+import React,{ useState,useEffect } from 'react';
 import './App.css';
 import { ClientInfo } from './components/ClientInfo';
 import { Footer } from './components/Footer';
 import { Header } from './components/Header';
+import { TableForm } from './components/TableForm';
 
 function App() {
-const [preview,setpreview]=useState(false)
-const [name,setname]=useState("")
-const [mail,setmail]=useState("")
+const [preview,setpreview]=useState(true)
+const [name,setname]=useState("Kalpesh Patil")
+const [mail,setmail]=useState("kalpesh@gmail.com")
 const [phno,setphno]=useState(1234567890)
-const [bankname,setbankname]=useState("")
-const [acch,setacch]=useState("")
-const [accno,setaccno]=useState(0)
-const [website,setwebsite]=useState("")
-const [cliname,setcliname]=useState("")
-const [climail,setclimail]=useState("")
-const [invno,setinvno]=useState("")
-const [invd,setinvd]=useState("")
-const [duedate,setduedate]=useState("")
-const [note,setnote]=useState("")
+const [bankname,setbankname]=useState("SBI")
+const [acch,setacch]=useState("Kalpesh Patil")
+const [accno,setaccno]=useState(23456123456)
+const [website,setwebsite]=useState("www.kalpeshInfo.com")
+const [cliname,setcliname]=useState("SH Healthcare")
+const [climail,setclimail]=useState("shcare@gmail.com")
+const [invno,setinvno]=useState("12344")
+const [invd,setinvd]=useState("12/10/23")
+const [duedate,setduedate]=useState("12/12/23")
+const [note,setnote]=useState("Thank You for shopping as per above please pay mentioned amout before due date")
+const[qty,setqty]=useState(0)
+const[desc,setdesc]=useState("")
+const[price,setprice]=useState(0)
+const[amount,setamount]=useState(0)
+const [list,setlist]=useState([]);
 
-
-
+console.log(list)
 const print=()=>{
   window.print();
  
 }
+
+const dnld=()=>{
+  window.download();
+}
+
+useEffect(()=>{
+  const handelAmount=()=>{
+    setamount(qty*price)
+  }
+ 
+  handelAmount();
+},[qty,price])
 
 
   return (
     <div className="w-screen flex items-center justify-center ">
 
       {preview? <div className='md:mt-4 border-2 shadow-lg w-full p-2 md:w-2/4'>
-        <Header name={name} print={print} />
-        <ClientInfo cliname={cliname} climail={climail} invno={invno} invd={invd} duedate={duedate} note={note} />
+        <Header name={name} print={print} download={dnld}/>
+        <ClientInfo cliname={cliname} climail={climail} invno={invno} invd={invd} duedate={duedate} note={note} list={list} />
         <Footer mail={mail}  phno={phno} bankname={bankname} acch={acch} accno={accno} website={website} setpreview={setpreview} />
           </div>:
           <div className='md:mt-4 border-2 shadow-lg w-full p-2 flex flex-col  md:w-2/4 '>
@@ -86,8 +103,10 @@ const print=()=>{
             <label for="" className=''>Client Mail :</label>
             <input type='text' value={climail}  className='border-2 border-gray-500 mb-1 w-11/12   ' onChange={(e)=>{setclimail(e.target.value)}}/>
             </div>
-            <div className='md:grid  grid-cols-3 gap-5 md:mt-20'>
- 
+
+
+
+            <div className='md:grid  grid-cols-3 gap-5 md:mt-10'>
             <div className='flex   flex-col'>
             <label for="" className='font-bold'>Invoice No :</label>
             <input type='text' value={invno}  className='border-2 border-gray-500 px-2  w-4/5  ' onChange={(e)=>{setinvno(e.target.value)}}/>
@@ -102,9 +121,22 @@ const print=()=>{
             </div>
 
             </div>
+
+           <TableForm 
+            qty={qty}
+            setqty={setqty}
+            desc={desc}
+            setdesc={setdesc}
+            price={price}
+            setprice={setprice}
+            amount={amount}
+            list={list}
+            setlist={setlist}
+setpreview={setpreview}
+            />
             
             <label className='m-2'>Notes :</label>
-            <textarea cols='50' rows='10' value={note} className='border-2 border-gray-500 mb-1 w-4/5 m-2 block m-auto' onChange={(e)=>{setnote(e.target.value)}}>
+            <textarea cols='50' rows='10' value={note} className='border-2 border-gray-500 mb-1 w-4/5 block m-auto' onChange={(e)=>{setnote(e.target.value)}}>
 
             </textarea>
           

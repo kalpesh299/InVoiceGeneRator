@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Header = ({print,name}) => {
+export const Header = ({print,name,download}) => {
   return (
     <div>
          <div className="flex justify-between  ">
@@ -10,7 +10,7 @@ export const Header = ({print,name}) => {
                
                 <div className=" flex ">
                 <button className='mx-2 px-2 p-1 bg-blue-500 rounded-lg' onClick={print}>Print</button>
-               <button className='mx-2 px-2 p-1 bg-red-500 rounded-lg'>Download</button>
+               <button className='mx-2 px-2 p-1 bg-red-500 rounded-lg' onClick={download}>Download</button>
                <button className='mx-2 px-2 p-1 bg-green-500 rounded-lg'>Send</button>
                 </div>
               

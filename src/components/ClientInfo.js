@@ -1,16 +1,18 @@
 import React from 'react'
+import { Table } from './Table'
 
-export const ClientInfo = ({cliname,climail,invno,invd,duedate,note}) => {
+export const ClientInfo = ({cliname,climail,invno,invd,duedate,note,list}) => {
   return (
     <div>
-          <h2>{cliname}</h2>
-          <p>{climail}</p>
+          <h2 className='font-bold text-l'>{cliname}</h2>
+          <p className='font-bold text-l'>{climail}</p>
           
-            <p className="text-end">Invoice No:{invno}</p>
-            <p className="text-end">Invoice Date:{invd}</p>
-            <p className="text-end">Due Date:{duedate}</p>
+            <p className="text-end " ><span className='font-bold text-l'>Invoice No:</span>{invno}</p>
+            <p className="text-end " ><span className='font-bold text-l'>Invoice Date:</span>{invd}</p>
+            <p className="text-end "><span className='font-bold text-l'>Due Date:</span>{duedate}</p>
 
-            <p className="md:w-2/5 w-2/4 p-2">
+         <Table list={list}/>
+            <p className="md:w-2/5 w-2/4 p-2 font-mono">
            {note}
           </p>
         
