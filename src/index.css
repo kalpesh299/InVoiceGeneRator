@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 input,textarea{
-    background-color: #f1f1f1;
+    background-color: #eeecec;
     border:none
+}
+
+label{
+    color:blue
 }
